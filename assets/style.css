@@ -157,6 +157,44 @@ body {
 .warp-btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 12px 30px rgba(139, 123, 255, 0.55); }
 .warp-btn:active { transform: translateY(0); }
 
+/* ---- Engine toggle ---- */
+.engine-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2px;
+}
+.engine-toggle {
+    display: inline-flex;
+    padding: 4px;
+    gap: 4px;
+    background: rgba(10, 8, 30, 0.55);
+    border: 1px solid var(--glass-brd);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+}
+.engine-btn {
+    padding: 7px 16px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    background: transparent;
+    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.engine-btn:hover { color: var(--ink); }
+.engine-btn.active {
+    color: #0a0620;
+    background: linear-gradient(120deg, var(--cyan), var(--violet-bright));
+    box-shadow: 0 4px 14px rgba(139, 123, 255, 0.4);
+}
+.engine-hint { font-size: 12px; color: #6b78ab; }
+
 /* ---- Status ---- */
 .status { margin: 2px 0 0; min-height: 20px; font-size: 13.5px; letter-spacing: 0.02em; color: var(--muted); }
 .status[data-kind="ok"] { color: var(--ok); }

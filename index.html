@@ -11,6 +11,8 @@
     <!-- Ultraviolet core + config (needed on the page to encode destination URLs) -->
     <script src="uv/uv.bundle.js" defer></script>
     <script src="uv/uv.config.js" defer></script>
+    <!-- Scramjet loader (exposes $scramjetLoadController for the alternate engine) -->
+    <script src="scram/scramjet.all.js" defer></script>
 </head>
 <body>
     <canvas id="starfield" aria-hidden="true"></canvas>
@@ -63,6 +65,17 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </button>
+            </div>
+            <div class="engine-row">
+                <div class="engine-toggle" role="group" aria-label="Proxy engine">
+                    <button type="button" class="engine-btn active" data-engine="uv" aria-pressed="true">
+                        Ultraviolet
+                    </button>
+                    <button type="button" class="engine-btn" data-engine="scramjet" aria-pressed="false">
+                        Scramjet
+                    </button>
+                </div>
+                <span class="engine-hint">Site broken or a game? Try Scramjet.</span>
             </div>
             <p id="status" class="status" role="status" data-kind="loading">Igniting thrusters…</p>
         </form>

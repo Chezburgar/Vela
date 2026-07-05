@@ -1,15 +1,36 @@
 # 🛰️ Vela
 
-A sleek, space-themed web proxy powered by [Ultraviolet](https://github.com/titaniumnetwork-dev/Ultraviolet).
-Fully static — the whole thing runs from GitHub Pages.
+A sleek, space-themed web proxy with **two engines** —
+[Ultraviolet](https://github.com/titaniumnetwork-dev/Ultraviolet) and
+[Scramjet](https://github.com/MercuryWorkshop/scramjet). Fully static — the
+whole thing runs from GitHub Pages.
 
-![status](https://img.shields.io/badge/hosting-static-8b7bff) ![proxy](https://img.shields.io/badge/engine-Ultraviolet%203.2-4de0ff)
+![status](https://img.shields.io/badge/hosting-static-8b7bff) ![uv](https://img.shields.io/badge/engine-Ultraviolet%203.2-4de0ff) ![scramjet](https://img.shields.io/badge/engine-Scramjet%201.1-8b7bff)
+
+---
+
+## Two engines
+
+Use the toggle under the search bar to pick an engine:
+
+- **Ultraviolet** (default) — fast and broad; great for most sites.
+- **Scramjet** — Ultraviolet's newer sibling with much stronger sandboxing. It
+  runs many modern apps and WebGL games (deadshot.io, Krunker-family, etc.) that
+  freeze or blank out under UV. Slower to start; reach for it when a site breaks
+  on UV.
+
+A single service worker routes both — UV handles `/service/…`, Scramjet handles
+`/scramjet/…` — so they never collide. Your choice is remembered per-browser.
+
+> Heavy games are demanding: on a slow WISP server they'll load sluggishly even
+> under Scramjet. A fast, self-hosted WISP server (below) makes the biggest
+> difference to playability.
 
 ---
 
 ## How it works (and the one catch)
 
-Ultraviolet runs almost entirely in your browser via a **service worker** that
+Both engines run almost entirely in your browser via a **service worker** that
 rewrites pages. The one thing a browser can't do by itself is open raw
 connections to arbitrary sites — that needs a server.
 
@@ -75,22 +96,24 @@ localStorage.setItem("vela:wisp", "wss://your-server.example/wisp/");
 ## Project layout
 
 ```
-index.html            Landing page / launcher
-sw.js                 Service worker (app-root scope)
+index.html            Landing page / launcher + engine toggle
+sw.js                 Unified service worker (routes UV + Scramjet)
 assets/
-  app.js              SW registration, WISP transport, search → warp
+  app.js              SW registration, WISP transport, engine switch, warp
   style.css           Space theme
   starfield.js        Animated canvas backdrop
   favicon.svg
 uv/                   Ultraviolet 3.2.10 (bundle, client, handler, sw, config)
-baremux/             bare-mux (transport multiplexer + worker)
+scram/               Scramjet 1.1.0 (all.js, sync.js, wasm)
+baremux/             bare-mux (transport multiplexer + worker) — shared by both
 epoxy/               epoxy WISP transport (WASM inlined)
 .github/workflows/   Optional Pages deploy action
 .nojekyll
 ```
 
-To update the engine: `npm i @titaniumnetwork-dev/ultraviolet @mercuryworkshop/bare-mux @mercuryworkshop/epoxy-transport`
-and copy the `dist/` files back into `uv/`, `baremux/`, and `epoxy/`.
+To update the engines:
+`npm i @titaniumnetwork-dev/ultraviolet @mercuryworkshop/scramjet @mercuryworkshop/bare-mux @mercuryworkshop/epoxy-transport`
+then copy each package's `dist/` files back into `uv/`, `scram/`, `baremux/`, and `epoxy/`.
 
 ---
 
