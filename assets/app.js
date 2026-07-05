@@ -10,7 +10,7 @@ import { BareMuxConnection } from "../baremux/index.mjs";
 // can. Swap this for your own server for reliability / privacy.
 // Override at runtime in the browser console with:
 //   localStorage.setItem("vela:wisp", "wss://your-server/wisp/")
-const DEFAULT_WISP = "wss://wisp.mercurywork.shop/";
+const DEFAULT_WISP = "wss://vela-wisp.onrender.com/";
 const WISP_URL = localStorage.getItem("vela:wisp") || DEFAULT_WISP;
 
 const SEARCH_ENGINE = "https://www.google.com/search?q=%s";
