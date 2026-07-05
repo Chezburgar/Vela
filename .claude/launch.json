@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["-y", "serve", "-l", "3000", "."],
       "port": 3000
+    },
+    {
+      "name": "vela-subpath",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "serve", "-l", "3000", "C:/Users/chase/AppData/Local/Temp/claude/C--Users-chase-Vela/be09992e-534a-4b2a-9f8e-067da019c560/scratchpad/site-root"],
+      "port": 3000
     }
   ]
 }

@@ -16,6 +16,13 @@ const uv = new UVServiceWorker();
 const { ScramjetServiceWorker } = $scramjetLoadWorker();
 const scramjet = new ScramjetServiceWorker();
 
+// Take over as soon as this worker is installed, so engine changes (e.g. adding
+// Scramjet) apply on the next load instead of waiting for every tab to close.
+// Without this, an older worker keeps routing and unknown paths (like
+// /scramjet/…) fall through to the host and 404.
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));
+
 async function handleRequest(event) {
     // Scramjet first — it reads its live config (prefix/flags) from IndexedDB,
     // which the page's controller writes on load. Guarded so that if Scramjet
